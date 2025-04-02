@@ -2,7 +2,6 @@ package io.github.nihaljain;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,11 +40,11 @@ public class Util {
     logger.info("useCanonicalPath flag: " + useCanonicalPath);
 
     // Get the final log path for the log directory
-    Path logDirPath = useCanonicalPath ? Paths.get(logDir).toRealPath() : Paths.get(logDir);
+    Path logDirPath = useCanonicalPath ? Path.of(logDir).toRealPath() : Path.of(logDir).toAbsolutePath();
     logger.info("Logs directory (final path): " + logDirPath);
 
     // Ensure the log directory exists, else create it
-    if (!Files.exists(logDirPath) || !Files.isDirectory(logDirPath)) {
+    if (!Files.isDirectory(logDirPath)) {
       Files.createDirectories(logDirPath);
     }
     return logDirPath;
