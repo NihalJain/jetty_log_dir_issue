@@ -1,6 +1,6 @@
 name: Jetty 9 Test
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build-and-test:
@@ -33,8 +33,14 @@ jobs:
         run: |
           java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer9 "src/../logs" false &
           sleep 10
-          curl -f http://localhost:8080/logs
-           echo "Jetty 9 server with non-canonical path expected to pass"
+          echo "Jetty 9 server with non-canonical path expected to pass"
+          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:8080/logs)
+          if [ $status_code -eq 200 ]; then
+            echo "Jetty 9 server with non-canonical path passed"
+          else
+            echo "Jetty 9 server with non-canonical path failed with status code $status_code"
+            exit 1
+          fi
         continue-on-error: true
 
       - name: Kill Java process (non-canonical path)
@@ -44,8 +50,14 @@ jobs:
         run: |
           java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer9 "src/../logs" true &
           sleep 10
-          curl -f http://localhost:8080/logs
-           echo "Jetty 9 server with canonical path expected to pass"
+          echo "Jetty 9 server with canonical path expected to pass"
+          status_code=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:8080/logs)
+          if [ $status_code -eq 200 ]; then
+            echo "Jetty 9 server with canonical path passed"
+          else
+            echo "Jetty 9 server with canonical path failed with status code $status_code"
+            exit 1
+          fi
         continue-on-error: true
 
       - name: Kill Java process (canonical path)
