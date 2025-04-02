@@ -33,7 +33,7 @@ jobs:
         run: |
           java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer12 "src/../logs" false &
           sleep 10
-          echo "Expected: Jetty 12 server with non-canonical path expected to fail"
+          echo "Expected: Jetty 12 server with non-canonical path expected to pass"
           status_code=$(curl -L -o /dev/null -s -w "%{http_code}\n" http://localhost:8080/logs)
           if [ $status_code -eq 200 ]; then
             echo "Actual: Jetty 12 server with non-canonical path passed"
