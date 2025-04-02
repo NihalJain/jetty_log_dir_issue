@@ -1,6 +1,6 @@
 package io.github.nihaljain;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +15,14 @@ public class JettyServer9 {
   private static final Logger logger = LoggerFactory.getLogger(JettyServer9.class);
 
   public static void main(String[] args) throws Exception {
-    String logDirPath = Util.getLogDirPath(args);
+    Path logDirPath = Util.getLogDirPath(args);
 
     Server server = new Server(8080);
     ContextHandlerCollection parent = new ContextHandlerCollection();
 
     ServletContextHandler logContext = new ServletContextHandler(parent, "/logs");
     logContext.addServlet(new ServletHolder(new DefaultServlet()), "/");
-    logContext.setResourceBase(logDirPath);
+    logContext.setResourceBase(logDirPath.toString());
     logContext.setDisplayName("logs");
 
     parent.addHandler(logContext);
