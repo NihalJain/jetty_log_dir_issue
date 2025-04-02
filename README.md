@@ -38,25 +38,20 @@ This project demonstrates a bug in Jetty 12 where setting the base resource to a
    java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer9 "src/../logs" false
    ```
    Replace /path/to/logs with the actual path to your logs directory.
-4. Open the following URL in a browser:
-   ```
-    http://localhost:8080/logs
-    ```
-    You should see the contents of the logs directory.
+4. Open the following URL in a browser: http://localhost:8080/logs
+   - You should see the contents of the logs directory.
 5. Stop the Jetty 9 server.
 6. Rerun the Jetty 9 server with the following command:
    ```sh
    java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer9 "src/../logs" true
    ```
-7. Open the following URL in a browser:
-   ```
-    http://localhost:8080/logs
-    ```
-    You should see the contents of the logs directory.
+7. Open the following URL in a browser: http://localhost:8080/logs 
+   - You should see the contents of the logs directory.
 8. Stop the Jetty 9 server.
 9. Clean the project:
    ```sh
    mvn clean
+   ```
 
 
 ### Running with Jetty 12
@@ -69,21 +64,15 @@ This project demonstrates a bug in Jetty 12 where setting the base resource to a
    java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer12 "src/../logs" false 
    ```
    Replace /path/to/logs with the actual path to your logs directory.
-4. Open the following URL in a browser:
-   ```
-    http://localhost:8080/logs
-    ```
-   You will see a 404 error.
+4. Open the following URL in a browser: http://localhost:8080/logs
+   - You will see a 404 error with Jetty 12 + EE8
 5. Stop the Jetty 12 server.
 6. Now rerun the Jetty 12 server with the following command:
    ```sh
    java -cp target/jetty-log-dir-issue-1.0-SNAPSHOT.jar io.github.nihaljain.JettyServer12 "src/../logs" true
    ```
-7. Open the following URL in a browser:
-   ```
-    http://localhost:8080/logs
-    ```
-   You should see the contents of the logs directory.
+7. Open the following URL in a browser: http://localhost:8080/logs
+   - You should see the contents of the logs directory.
 8. Stop the Jetty 12 server.
 9. Clean the project:
    ```sh
