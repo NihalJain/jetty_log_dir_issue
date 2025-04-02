@@ -119,13 +119,15 @@ This behavior is demonstrated by running the provided Java server code with both
 
 * Jetty 9 and Jetty 12 should behave the same way when accessing the logs directory.
 
-For Jetty 9:
-![jetty9.png](screenshots/jetty9.png)
-Refer https://github.com/NihalJain/jetty_log_dir_issue/actions/runs/14220016167/job/39845473985
+## Screenshots
 
-While, for Jetty 12:
+* For Jetty 9:
+![jetty9.png](screenshots/jetty9.png)
+Refer https://github.com/NihalJain/jetty_log_dir_issue/actions/runs/14220759214/job/39847924316
+
+* While, for Jetty 12:
 ![jetty12.png](screenshots/jetty12.png)
-Refer https://github.com/NihalJain/jetty_log_dir_issue/actions/runs/14220016149/job/39845473906
+Refer https://github.com/NihalJain/jetty_log_dir_issue/actions/runs/14220759206/job/39847924335
 
 ## Environment
 * Jetty version: 9.x and 12.x
