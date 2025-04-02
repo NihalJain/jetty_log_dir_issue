@@ -10,7 +10,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.HandlerCollection;
 import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.server.Handler;
 
 public class JettyServer9 {
   private static final Logger logger = LoggerFactory.getLogger(JettyServer9.class);

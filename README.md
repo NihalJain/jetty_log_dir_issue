@@ -2,20 +2,51 @@
 
 This project demonstrates a bug in Jetty 12 where setting the base resource to a path containing `..` results in a 404 error, whereas the same setup works in Jetty 9.
 
-## Prerequisites
-
-### Environment
-* Jetty version: 9.x and 12.x
-* Java version: 17
-* Operating system: macOS
-* Steps to reproduce (as described above)
-
 ## Project Structure
 
 - `src/main/java/com/example/JettyServer9.java`: Jetty 9 server setup
 - `src/main/java/com/example/JettyServer12.java`: Jetty 12 + EE8 server setup
 - `src/main/java/com/example/Util.java`: Utility class to get logs directory
-- `pom.xml`: Maven configuration
+- `pom.xml`: Maven configuration file with Jetty 9 and Jetty 12 profiles
+
+## Diff between Jetty 9 and Jetty 12 code
+
+Code changes between Jetty 9 and Jetty 12 are minimal. Both the Jetty 9 and Jetty 12 servers serve the contents of the logs directory at the `/logs` endpoint and have similar implementations.
+
+```sh
+diff src/main/java/io/github/nihaljain/JettyServer9.java src/main/java/io/github/nihaljain/JettyServer12.java
+8,9c8,9
+< import org.eclipse.jetty.servlet.ServletContextHandler;
+< import org.eclipse.jetty.servlet.ServletHolder;
+---
+> import org.eclipse.jetty.ee8.servlet.ServletContextHandler;
+> import org.eclipse.jetty.ee8.servlet.ServletHolder;
+11,12c11,12
+< import org.eclipse.jetty.server.handler.HandlerCollection;
+< import org.eclipse.jetty.servlet.DefaultServlet;
+---
+> import org.eclipse.jetty.server.Handler;
+> import org.eclipse.jetty.ee8.servlet.DefaultServlet;
+14,15c14,15
+< public class JettyServer9 {
+<   private static final Logger logger = LoggerFactory.getLogger(JettyServer9.class);
+---
+> public class JettyServer12 {
+>   private static final Logger logger = LoggerFactory.getLogger(JettyServer12.class);
+30c30
+<     HandlerCollection handlerCollection = new HandlerCollection();
+---
+>     Handler.Sequence handlerCollection = new Handler.Sequence();
+  ```
+
+## Issue
+
+The issue is a discrepancy between Jetty 9 and Jetty 12 when setting the base resource to a path containing `..`.
+
+* In Jetty 9, the server correctly resolves the path and serves the contents of the logs directory. 
+* However, in Jetty 12, the same setup results in a 404 error, indicating that the path resolution fails.
+
+This behavior is demonstrated by running the provided Java server code with both Jetty versions and accessing the /logs endpoint.
 
 ## Steps to Reproduce
 
@@ -87,3 +118,9 @@ This project demonstrates a bug in Jetty 12 where setting the base resource to a
 ## Expected Behavior
 
 * Jetty 9 and Jetty 12 should behave the same way when accessing the logs directory.
+
+## Environment
+* Jetty version: 9.x and 12.x
+* Java version: 17
+* Operating system: macOS / CentOS 8
+* Steps to reproduce (as described above)
