@@ -15,6 +15,7 @@ Code changes between Jetty 9 and Jetty 12 are minimal. Both the Jetty 9 and Jett
 
 ```sh
 diff src/main/java/io/github/nihaljain/JettyServer9.java src/main/java/io/github/nihaljain/JettyServer12.java
+
 8,9c8,9
 < import org.eclipse.jetty.servlet.ServletContextHandler;
 < import org.eclipse.jetty.servlet.ServletHolder;
@@ -33,6 +34,10 @@ diff src/main/java/io/github/nihaljain/JettyServer9.java src/main/java/io/github
 ---
 > public class JettyServer12 {
 >   private static final Logger logger = LoggerFactory.getLogger(JettyServer12.class);
+25c25
+<     logContext.setResourceBase(logDirPath.toString());
+---
+>     logContext.setBaseResourceAsPath(logDirPath);
 30c30
 <     HandlerCollection handlerCollection = new HandlerCollection();
 ---
