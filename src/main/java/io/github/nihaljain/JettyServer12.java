@@ -22,7 +22,7 @@ public class JettyServer12 {
 
     ServletContextHandler logContext = new ServletContextHandler(parent, "/logs");
     logContext.addServlet(new ServletHolder(new DefaultServlet()), "/");
-    logContext.setBaseResourceAsPath(logDirPath);
+    logContext.setResourceBase(logDirPath.toUri().toASCIIString());
     logContext.setDisplayName("logs");
 
     parent.addHandler(logContext);
