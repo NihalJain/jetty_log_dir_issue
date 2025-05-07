@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <jetty-12.version>12.0.18</jetty-12.version>
+        <jetty-12.version>12.0.20</jetty-12.version>
         <jetty-9.version>9.4.57.v20241219</jetty-9.version>
     </properties>
     <dependencies>
